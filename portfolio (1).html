@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiruthika Venkatesan — AI Product Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #1a1a1a;
+  --border: #222222;
+  --text: #e8e4de;
+  --text-muted: #8a867e;
+  --accent: #e54033;
+  --accent-soft: rgba(229,64,51,0.12);
+  --cream: #f5f0e8;
+  --gold: #c4a265;
+  --teal: #2dd4a8;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: #fff; }
+
+.grain {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+/* NAV */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 20px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  backdrop-filter: blur(20px);
+  background: rgba(10,10,10,0.8);
+  border-bottom: 1px solid var(--border);
+}
+nav .logo { font-family: var(--serif); font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
+nav .logo span { color: var(--accent); }
+nav ul { list-style: none; display: flex; gap: 32px; }
+nav a { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+nav a:hover { color: var(--accent); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 140px 48px 80px;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(229,64,51,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 24px; font-weight: 500;
+}
+.hero h1 {
+  font-family: var(--serif); font-size: clamp(42px, 6vw, 80px);
+  font-weight: 400; line-height: 1.1; max-width: 900px;
+  margin-bottom: 32px;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 18px; color: var(--text-muted); max-width: 640px;
+  line-height: 1.8; margin-bottom: 48px;
+}
+.hero-stats {
+  display: flex; gap: 48px; padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+.hero-stats .stat-num { font-family: var(--serif); font-size: 36px; font-weight: 700; color: var(--cream); }
+.hero-stats .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
+
+/* SECTIONS */
+section { padding: 100px 48px; }
+.section-label {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 16px; font-weight: 500;
+}
+.section-title {
+  font-family: var(--serif); font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400; line-height: 1.2; margin-bottom: 20px;
+}
+.section-desc { color: var(--text-muted); max-width: 600px; font-size: 16px; margin-bottom: 60px; }
+
+/* CASE STUDY CARDS */
+.cases { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.case {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.4s ease, border-color 0.4s;
+}
+.case:hover { transform: translateY(-4px); border-color: var(--accent); }
+.case-img {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+.case-img-bg {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 13px; color: var(--text-muted);
+}
+.case:nth-child(1) .case-img-bg { background: linear-gradient(135deg, #1a0a0a, #2a1515, #0a1a1a); }
+.case:nth-child(2) .case-img-bg { background: linear-gradient(135deg, #0a0a1a, #151525, #1a0a1a); }
+.case:nth-child(3) .case-img-bg { background: linear-gradient(135deg, #0a1a0a, #152515, #0a1a1a); }
+.case:nth-child(4) .case-img-bg { background: linear-gradient(135deg, #1a1a0a, #252515, #1a0a0a); }
+
+.case-tag {
+  position: absolute; top: 16px; left: 16px;
+  background: var(--accent); color: #fff;
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 100px;
+}
+.case-body { padding: 24px; }
+.case-body h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; margin-bottom: 10px; line-height: 1.3; }
+.case-body p { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+.case-metrics { display: flex; gap: 20px; }
+.case-metric {
+  background: var(--surface-2); border-radius: 8px; padding: 10px 14px;
+  font-size: 12px;
+}
+.case-metric strong { display: block; font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--teal); margin-bottom: 2px; }
+.case-metric span { color: var(--text-muted); }
+
+/* APPROACH */
+.approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.approach-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: border-color 0.3s;
+}
+.approach-card:hover { border-color: var(--gold); }
+.approach-num { font-family: var(--serif); font-size: 48px; color: var(--accent); font-weight: 700; line-height: 1; margin-bottom: 20px; }
+.approach-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+.approach-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+/* TECH */
+.tech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.tech-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.tech-pill:hover { border-color: var(--accent); transform: translateY(-2px); }
+.tech-pill .tech-name { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+.tech-pill .tech-cat { font-size: 11px; color: var(--text-muted); }
+
+/* TESTIMONIAL */
+.testimonial {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 64px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.testimonial::before {
+  content: '"';
+  font-family: var(--serif); font-size: 120px; color: var(--accent);
+  position: absolute; top: 10px; left: 40px; line-height: 1; opacity: 0.3;
+}
+.testimonial blockquote {
+  font-family: var(--serif); font-size: 22px; font-style: italic;
+  line-height: 1.7; margin-bottom: 24px; color: var(--cream);
+}
+.testimonial cite { font-style: normal; font-size: 14px; color: var(--text-muted); }
+
+/* CONTACT */
+.contact-section { text-align: center; padding: 120px 48px; }
+.contact-section h2 { font-family: var(--serif); font-size: clamp(32px, 5vw, 56px); font-weight: 400; margin-bottom: 16px; }
+.contact-section h2 em { color: var(--accent); font-style: italic; }
+.contact-links { display: flex; gap: 24px; justify-content: center; margin-top: 32px; }
+.contact-links a {
+  color: var(--text); text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  padding: 12px 32px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  transition: all 0.3s;
+}
+.contact-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+footer {
+  text-align: center; padding: 40px;
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text-muted);
+}
+
+/* ANIMATION */
+@keyframes fadeUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+.fade-up { animation: fadeUp 0.8s ease forwards; }
+.delay-1 { animation-delay: 0.1s; opacity: 0; }
+.delay-2 { animation-delay: 0.2s; opacity: 0; }
+.delay-3 { animation-delay: 0.3s; opacity: 0; }
+.delay-4 { animation-delay: 0.4s; opacity: 0; }
+.delay-5 { animation-delay: 0.5s; opacity: 0; }
+
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  nav ul { display: none; }
+  section, .hero { padding-left: 24px; padding-right: 24px; }
+  .cases { grid-template-columns: 1fr; }
+  .approach-grid { grid-template-columns: 1fr; }
+  .tech-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { flex-wrap: wrap; gap: 24px; }
+  .testimonial { padding: 32px; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav>
+  <div class="logo">K<span>.</span>V</div>
+  <ul>
+    <li><a href="#work">Case Studies</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#tech">Stack</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label fade-up delay-1">AI Product Manager — Creative Technology</div>
+  <h1 class="fade-up delay-2">I turn novel <em>AI research</em> into creative tools that <em>filmmakers</em> actually use.</h1>
+  <p class="hero-sub fade-up delay-3">
+    6+ years shipping AI/ML products from research prototype to production — specializing in generative AI for video and image, creative production workflows, and the messy intersection of cutting-edge models and artist intuition.
+  </p>
+  <div class="hero-stats fade-up delay-4">
+    <div><div class="stat-num">6+</div><div class="stat-label">Years in AI Product</div></div>
+    <div><div class="stat-num">$8.6M</div><div class="stat-label">Incremental Value Driven</div></div>
+    <div><div class="stat-num">200+</div><div class="stat-label">Creative Users Served</div></div>
+    <div><div class="stat-num">3x</div><div class="stat-label">Faster Model Deployment</div></div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="work">
+  <div class="section-label fade-up">Case Studies</div>
+  <h2 class="section-title fade-up">From research lab to <br>creative production floor.</h2>
+  <p class="section-desc fade-up">Each project represents a real challenge: translating novel AI capabilities into intuitive workflows that amplify artist creativity without breaking production timelines.</p>
+
+  <div class="cases">
+    <div class="case fade-up delay-1">
+      <div class="case-img">
+        <div class="case-img-bg">
+          <svg width="200" height="120" viewBox="0 0 200 120">
+            <rect x="10" y="10" width="180" height="100" rx="8" fill="none" stroke="#e54033" stroke-width="0.5" opacity="0.5"/>
+            <rect x="20" y="20" width="70" height="40" rx="4" fill="#e54033" opacity="0.15"/>
+            <rect x="100" y="20" width="80" height="80" rx="4" fill="#2dd4a8" opacity="0.1"/>
+            <circle cx="140" cy="60" r="20" fill="none" stroke="#c4a265" stroke-width="0.5" opacity="0.6"/>
+            <line x1="20" y1="80" x2="80" y2="80" stroke="#e8e4de" stroke-width="0.3" opacity="0.3"/>
+            <line x1="20" y1="90" x2="60" y2="90" stroke="#e8e4de" stroke-width="0.3" opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="case-tag">Generative AI</div>
+      </div>
+      <div class="case-body">
+        <h3>AI-Powered Video & Image Pipeline for Creative Production</h3>
+        <p>Built an end-to-end generative AI pipeline enabling artists and editors to leverage AI-powered image enhancement, style transfer, and automated compositing within DaVinci Resolve, Nuke, and After Effects workflows.</p>
+        <div class="case-metrics">
+          <div class="case-metric"><strong>3x</strong><span>Faster deployment</span></div>
+          <div class="case-metric"><strong>84%</strong><span>Team adoption</span></div>
+          <div class="case-metric"><strong>$4.2M</strong><span>Efficiency gains</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case fade-up delay-2">
+      <div class="case-img">
+        <div class="case-img-bg">
+          <svg width="200" height="120" viewBox="0 0 200 120">
+            <rect x="10" y="30" width="55" height="70" rx="4" fill="#2dd4a8" opacity="0.12"/>
+            <rect x="75" y="15" width="55" height="85" rx="4" fill="#c4a265" opacity="0.12"/>
+            <rect x="140" y="40" width="50" height="60" rx="4" fill="#e54033" opacity="0.12"/>
+            <text x="37" y="108" font-size="8" fill="#8a867e" text-anchor="middle" font-family="monospace">train</text>
+            <text x="102" y="108" font-size="8" fill="#8a867e" text-anchor="middle" font-family="monospace">fine-tune</text>
+            <text x="165" y="108" font-size="8" fill="#8a867e" text-anchor="middle" font-family="monospace">deploy</text>
+            <path d="M65 65 L75 65" stroke="#8a867e" stroke-width="0.5" marker-end="url(#arr)"/>
+            <path d="M130 65 L140 65" stroke="#8a867e" stroke-width="0.5"/>
+          </svg>
+        </div>
+        <div class="case-tag">ML Infra</div>
+      </div>
+      <div class="case-body">
+        <h3>AI Decisioning Platform: Research-to-Production at Scale</h3>
+        <p>Re-architected a monolithic AI platform into event-driven microservices, managing compute budgets across training and inference for image, video, and NLP models serving 2.8M+ data points/month across media and entertainment clients.</p>
+        <div class="case-metrics">
+          <div class="case-metric"><strong>22 min</strong><span>Deploy (from 6 hr)</span></div>
+          <div class="case-metric"><strong>$8.6M</strong><span>Value captured</span></div>
+          <div class="case-metric"><strong>3x</strong><span>Volume absorbed</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case fade-up delay-3">
+      <div class="case-img">
+        <div class="case-img-bg">
+          <svg width="200" height="120" viewBox="0 0 200 120">
+            <rect x="30" y="20" width="140" height="80" rx="6" fill="none" stroke="#c4a265" stroke-width="0.5" opacity="0.5"/>
+            <text x="100" y="55" font-size="10" fill="#c4a265" text-anchor="middle" font-family="monospace" opacity="0.7">{ "scene": 42,</text>
+            <text x="100" y="70" font-size="10" fill="#c4a265" text-anchor="middle" font-family="monospace" opacity="0.5">  "vfx": true }</text>
+            <circle cx="50" cy="95" r="3" fill="#e54033" opacity="0.6"/>
+            <circle cx="100" cy="95" r="3" fill="#2dd4a8" opacity="0.6"/>
+            <circle cx="150" cy="95" r="3" fill="#c4a265" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="case-tag">LLM + CV</div>
+      </div>
+      <div class="case-body">
+        <h3>LLM + Computer Vision for Content Production Intelligence</h3>
+        <p>Prototyped a pipeline extracting structured metadata from unstructured visual content — scanned storyboards, shot lists, VFX briefs — enabling pre-production teams to accelerate creative workflows with 93% extraction accuracy.</p>
+        <div class="case-metrics">
+          <div class="case-metric"><strong>93%</strong><span>Accuracy</span></div>
+          <div class="case-metric"><strong>2.5 hr</strong><span>Saved/engagement</span></div>
+          <div class="case-metric"><strong>40%</strong><span>Cost reduction</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case fade-up delay-4">
+      <div class="case-img">
+        <div class="case-img-bg">
+          <svg width="200" height="120" viewBox="0 0 200 120">
+            <circle cx="60" cy="50" r="25" fill="none" stroke="#e54033" stroke-width="0.5" opacity="0.4"/>
+            <circle cx="100" cy="60" r="30" fill="none" stroke="#2dd4a8" stroke-width="0.5" opacity="0.4"/>
+            <circle cx="140" cy="50" r="25" fill="none" stroke="#c4a265" stroke-width="0.5" opacity="0.4"/>
+            <text x="60" y="93" font-size="7" fill="#8a867e" text-anchor="middle" font-family="monospace">R&D</text>
+            <text x="100" y="103" font-size="7" fill="#8a867e" text-anchor="middle" font-family="monospace">Creative</text>
+            <text x="140" y="93" font-size="7" fill="#8a867e" text-anchor="middle" font-family="monospace">Exec</text>
+          </svg>
+        </div>
+        <div class="case-tag">Stakeholder</div>
+      </div>
+      <div class="case-body">
+        <h3>Creative Stakeholder Alignment: Voice of the Artist in R&D</h3>
+        <p>Led 50+ discovery sessions with digital artists, editors, colorists, and technical directors — identified critical transparency gaps in AI outputs and championed initiatives that reshaped the product roadmap around creative fidelity and controllability.</p>
+        <div class="case-metrics">
+          <div class="case-metric"><strong>50+</strong><span>Discovery sessions</span></div>
+          <div class="case-metric"><strong>#2</strong><span>Roadmap priority</span></div>
+          <div class="case-metric"><strong>61%</strong><span>Fewer issues</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach" style="background: var(--surface);">
+  <div class="section-label">How I Work</div>
+  <h2 class="section-title">Research is nothing without <br>a creative who can use it.</h2>
+  <p class="section-desc">My approach centers on one belief: the best AI product managers don't just ship models — they ship creative confidence.</p>
+
+  <div class="approach-grid">
+    <div class="approach-card">
+      <div class="approach-num">01</div>
+      <h3>Deep Discovery with Creatives</h3>
+      <p>I shadow directors, editors, VFX artists, and colorists in their actual production environments. I don't build from assumptions — I build from watching an artist struggle with a 4-hour render that AI could reduce to 4 minutes.</p>
+    </div>
+    <div class="approach-card">
+      <div class="approach-num">02</div>
+      <h3>Research → Production Bridge</h3>
+      <p>I define evaluation criteria for model quality, adherence, and controllability — then partner with R&D to turn promising prototypes into tools that survive the chaos of real production timelines. 14-week cycles compressed to 6.</p>
+    </div>
+    <div class="approach-card">
+      <div class="approach-num">03</div>
+      <h3>Right Altitude Communication</h3>
+      <p>Monday: reviewing diffusion model architecture with ML engineers. Wednesday: demoing creative workflows to executive leadership. Friday: aligning compute budgets with infrastructure teams. Same story, different altitude.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="tech">
+  <div class="section-label">Technical Fluency</div>
+  <h2 class="section-title">I speak model architecture <br>and creative workflow.</h2>
+  <p class="section-desc">Not just buzzwords — I've managed compute budgets, defined training data strategies, and optimized inference pipelines in production.</p>
+
+  <div class="tech-grid">
+    <div class="tech-pill"><div class="tech-name">Diffusion Models</div><div class="tech-cat">Generative AI</div></div>
+    <div class="tech-pill"><div class="tech-name">Image/Video Gen</div><div class="tech-cat">Generative AI</div></div>
+    <div class="tech-pill"><div class="tech-name">Computer Vision</div><div class="tech-cat">AI/ML</div></div>
+    <div class="tech-pill"><div class="tech-name">LLM Integration</div><div class="tech-cat">AI/ML</div></div>
+    <div class="tech-pill"><div class="tech-name">Training Strategy</div><div class="tech-cat">ML Ops</div></div>
+    <div class="tech-pill"><div class="tech-name">Finetuning</div><div class="tech-cat">ML Ops</div></div>
+    <div class="tech-pill"><div class="tech-name">Inference Optim.</div><div class="tech-cat">ML Ops</div></div>
+    <div class="tech-pill"><div class="tech-name">Compute Budgets</div><div class="tech-cat">ML Infra</div></div>
+    <div class="tech-pill"><div class="tech-name">DaVinci Resolve</div><div class="tech-cat">Creative Tools</div></div>
+    <div class="tech-pill"><div class="tech-name">Nuke</div><div class="tech-cat">Creative Tools</div></div>
+    <div class="tech-pill"><div class="tech-name">After Effects</div><div class="tech-cat">Creative Tools</div></div>
+    <div class="tech-pill"><div class="tech-name">Python / SQL</div><div class="tech-cat">Analytics</div></div>
+    <div class="tech-pill"><div class="tech-name">Tableau / Power BI</div><div class="tech-cat">Analytics</div></div>
+    <div class="tech-pill"><div class="tech-name">ML Pipelines</div><div class="tech-cat">Infrastructure</div></div>
+    <div class="tech-pill"><div class="tech-name">Event-Driven Arch.</div><div class="tech-cat">Infrastructure</div></div>
+    <div class="tech-pill"><div class="tech-name">A/B Testing</div><div class="tech-cat">Product</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section style="background: var(--surface);">
+  <div class="testimonial">
+    <blockquote>Kiruthika has a rare ability to hold space between deeply technical AI conversations and creative production needs. She doesn't just translate — she synthesizes.</blockquote>
+    <cite>— Engineering Leadership, AI Decisioning Platform</cite>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <h2>Let's build the future <br>of <em>creative AI</em> together.</h2>
+  <p style="color: var(--text-muted); margin-top: 12px;">Currently based in Los Angeles. Open to Los Gatos.</p>
+  <div class="contact-links">
+    <a href="mailto:kiruthikavenkat2704@gmail.com">Email</a>
+    <a href="tel:+17208135590">Phone</a>
+    <a href="#">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Kiruthika Venkatesan. Designed with intention.
+</footer>
+
+</body>
+</html>
